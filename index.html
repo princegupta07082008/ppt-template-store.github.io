@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PPT Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{margin:0;font-family:Arial;background:#ffd6e7}
+header,footer{background:#ff4da6;color:white;text-align:center;padding:15px}
+nav{text-align:center;background:#ff4da6;padding:10px}
+nav a{color:white;margin:15px;font-weight:bold;cursor:pointer}
+.page{display:none;padding:25px}
+.active{display:block}
+
+.card{background:white;padding:15px;margin:10px;border-radius:10px;display:inline-block;width:200px;text-align:center}
+
+.galleryBox{display:flex;gap:20px;margin-top:20px}
+.thumbs{width:30%;display:flex;flex-direction:column;gap:10px}
+.thumbs img{width:100%;cursor:pointer;border-radius:8px}
+.preview{width:70%}
+.preview img{width:100%;border-radius:10px}
+
+button{background:#ff1493;color:white;border:none;padding:12px 25px;border-radius:6px;cursor:pointer}
+input,textarea{width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid #ff4da6}
+</style>
+</head>
+
+<body>
+
+<header><h1>PPT Templates Store</h1></header>
+
+<nav>
+<a onclick="showPage('templates')">Templates</a>
+<a onclick="showPage('custom')">Customization</a>
+<a onclick="showPage('contact')">Contact</a>
+<a onclick="showPage('feedback')">Feedback</a>
+</nav>
+
+<!-- TEMPLATE CATEGORY -->
+<div id="page-templates" class="page active">
+<h2>Select Category</h2>
+
+<div class="card">
+<h3>Business PPT</h3>
+<button onclick="openBusiness()">View More</button>
+</div>
+
+<div class="card">
+<h3>College PPT</h3>
+<button onclick="openCollege()">View More</button>
+</div>
+
+<div class="card">
+<h3>College PPT 10 Slides</h3>
+<button onclick="openCollege10slides()">View More</button>
+</div>
+
+</div>
+
+<!-- BUSINESS GALLERY -->
+<div id="page-business" class="page">
+<h2>Business Templates</h2>
+
+<div class="galleryBox">
+<div class="thumbs">
+<img src="image1.png" onclick="changeImg(this.src)">
+<img src="image2.png" onclick="changeImg(this.src)">
+<img src="image3.png" onclick="changeImg(this.src)">
+<img src="image4.png" onclick="changeImg(this.src)">
+<img src="image5.png" onclick="changeImg(this.src)">
+</div>
+
+<div class="preview">
+<img id="mainImage" src="images/business1.jpg">
+</div>
+</div>
+
+<br><br>
+<button onclick="showPage('templatePayment')">Buy Now</button>
+</div>
+
+<!-- COLLEGE GALLERY -->
+<div id="page-college" class="page">
+<h2>College Templates</h2>
+
+<div class="galleryBox">
+<div class="thumbs">
+<img src="images/college1.jpg" onclick="changeImg(this.src)">
+<img src="images/college2.jpg" onclick="changeImg(this.src)">
+<img src="images/college3.jpg" onclick="changeImg(this.src)">
+<img src="images/college4.jpg" onclick="changeImg(this.src)">
+</div>
+
+<div class="preview">
+<img id="mainImage" src="images/college1.jpg">
+</div>
+</div>
+
+<br><br>
+<button onclick="showPage('templatePayment')">Buy Now</button>
+</div>
+
+<!-- COLLEGE 10 SLIDES GALLERY -->
+<div id="page-college10" class="page">
+<h2>College Templates (10 Slides)</h2>
+
+<div class="galleryBox">
+<div class="thumbs">
+<img src="images/college1.jpg" onclick="changeImg(this.src)">
+<img src="images/college2.jpg" onclick="changeImg(this.src)">
+<img src="images/college3.jpg" onclick="changeImg(this.src)">
+<img src="images/college4.jpg" onclick="changeImg(this.src)">
+</div>
+
+<div class="preview">
+<img id="mainImage" src="images/college1.jpg">
+</div>
+</div>
+
+<br><br>
+<button onclick="showPage('templatePayment')">Buy Now</button>
+</div>
+
+<!-- TEMPLATE PAYMENT -->
+<div id="page-templatePayment" class="page">
+<h2>Template Payment ₹50</h2>
+<p>UPI: p.3002g@ptyes</p>
+<img src="QR code.jpeg" width="200">
+
+<form onsubmit="return templatePay()">
+<input id="n1" placeholder="Name">
+<input id="e1" placeholder="Gmail">
+<input id="t1" placeholder="Transaction ID">
+<input type="file" id="s1">
+<button type="submit">Submit Payment</button>
+</form>
+</div>
+
+<!-- CUSTOMIZATION -->
+<div id="page-custom" class="page">
+<h1>Coustamize ppt</h1> 
+<h4>👉In this coustamization section we make fully coustamize ppt according to your presentation.</h4>
+<h2>🔥Customization your full ppt at just ₹300 only</h2>
+
+<form onsubmit="return customForm()">
+<input id="c1" placeholder="Name">
+<input id="c2" placeholder="Email">
+<input id="c3" placeholder="Phone">
+<textarea id="c4" placeholder="Describe PPT"></textarea>
+
+<select id="c5">
+<option value="">Delivery</option>
+<option>3 Days ₹300</option>
+<option>Fast ₹350</option>
+</select>
+
+<button type="submit">Proceed to Payment</button>
+</form>
+</div>
+
+<div id="page-contact" class="page">
+<h2>Contact</h2>
+<p>Email: pgupta07082008@email.com</p>
+</div>
+
+<div id="page-feedback" class="page">
+<h2>Feedback</h2>
+<input id="f1" placeholder="Name">
+<textarea id="f2"></textarea>
+<button onclick="feedback()">Submit</button>
+</div>
+
+<footer>© PPT Store</footer>
+
+<script>
+function showPage(p){
+document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+document.getElementById('page-'+p).classList.add('active');
+}
+
+function openBusiness(){showPage('business')}
+function openCollege(){showPage('college')}
+function openCollege10slides(){showPage('college10')}
+
+function changeImg(src){document.getElementById('mainImage').src=src;}
+
+function celebrate(){
+var end=Date.now()+2000;
+(function frame(){confetti({particleCount:6,angle:60,spread:70,origin:{x:0}});
+confetti({particleCount:6,angle:120,spread:70,origin:{x:1}});
+if(Date.now()<end){requestAnimationFrame(frame);}}());
+}
+
+function templatePay(){
+if(!n1.value||!e1.value||!t1.value||!s1.value){alert("Fill all details");return false;}
+celebrate(); alert("Thankyou for buying PPT will be shared by Gmail in 6 hours."); return false;
+}
+
+function customForm(){
+if(!c1.value||!c2.value||!c3.value||!c4.value||!c5.value){alert("Fill all details");return false;}
+celebrate(); alert("Thankyou for buying your coustamized PPT will be shared by Gmail in given time"); return false;
+}
+
+function feedback(){
+if(!f1.value||!f2.value){alert("Fill feedback");return;}
+alert("Thanks for feedback ❤️");
+}
+</script>
+
+</body>
+</html>
